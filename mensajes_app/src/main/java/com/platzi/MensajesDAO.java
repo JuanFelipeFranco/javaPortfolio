@@ -1,7 +1,10 @@
 package com.platzi;
 
+import com.mysql.cj.protocol.Resultset;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 //son los metodos que nos van a permitir la conexion con la base de Datos.
@@ -26,7 +29,28 @@ public class MensajesDAO {
         }
     }
 
-    public static void leerMensajeDB(){
+    public static void leerMensajeDB() {
+        Conexion db_connect = new Conexion();
+
+        PreparedStatement ps = null; //NOS PERMITE PREPARAR LA SENTENCIA
+        ResultSet rs = null; //Nos permite traer los datos en filas para mostrarlos.
+
+        try (Connection conexion = db_connect.get_connection()) {
+            String query = "SELECT * FROM mensajes";
+            ps = conexion.prepareStatement(query);
+            rs = ps.executeQuery();//ejecuta la consulta, y en este caso solicita datos.
+
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("id_mensajes"));
+                System.out.println("Mensaje: " + rs.getString("mensaje"));
+                System.out.println("Autor: " + rs.getString("author_mensaje"));
+                System.out.println("Fecha: " + rs.getString("fecha_mensaje"));
+                System.out.println("");
+            }
+        } catch (SQLException e) {
+            System.out.println("No se pudieron recuperar los mensajes");
+            System.out.println(e);
+        }
 
     }
 

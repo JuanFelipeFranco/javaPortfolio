@@ -15,6 +15,7 @@ public class MensajesService {
         System.out.println("tu nombre");
         String nombre = sc.nextLine();
 
+
         Mensajes registro = new Mensajes();
         registro.setMensaje(mensaje);
         registro.setAutor_mensaje(nombre);
@@ -22,7 +23,7 @@ public class MensajesService {
         MensajesDAO.crearMensajeDB(registro);
     }
     public static void listarMensajes() {
-
+        MensajesDAO.leerMensajeDB();
     }
     public static void borrarMensaje() {
 
