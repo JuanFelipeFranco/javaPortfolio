@@ -3,7 +3,7 @@ package com.platzi;
 public class Gatos {
     int id;
     String url;
-    String apikey = "live_OFqRpUKxbKW41RqavnLLeLLscJpEUzfnmvwOuCZ8M7UwlTyADhNNEwk9Xx9iwq1q";
+    String apikey = "";
     String image;
 
     public int getId() {
