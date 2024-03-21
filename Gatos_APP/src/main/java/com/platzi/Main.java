@@ -21,7 +21,7 @@ public class Main {
             }
             switch (opcion_menu){
                 case 0:
-                    
+                    GatosService.verGatos();
                     break;
                 default:
                     break;
