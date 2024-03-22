@@ -1,16 +1,16 @@
 package com.platzi;
 
 public class Gatos {
-    int id;
+    String id;
     String url;
-    String apikey = "";
+    String apikey = "live_OFqRpUKxbKW41RqavnLLeLLscJpEUzfnmvwOuCZ8M7UwlTyADhNNEwk9Xx9iwq1q";
     String image;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
