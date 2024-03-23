@@ -1,6 +1,7 @@
-package com.platzi;
+package java. com.platzi;
 
 import com.google.gson.Gson;
+import com.platzi.Gatos;
 import com.squareup.okhttp.*;
 
 import javax.imageio.ImageIO;
@@ -94,6 +95,20 @@ public class GatosService {
     //creamos el metodo favorito Gato: este metodo recibe los datos que el usuario vio y lo marca como favorito en la api de catapi
 
     public static void favoritoGato(Gatos gato){
+        try {
+            OkHttpClient client = new OkHttpClient().build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\n    \"image_id\":\""+gato.getId()+"\"\n}");
+            Request request = new Request.Builder()
+                    .url("https://api.thecatapi.com/v1/favourites")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("x-api-key", gato.getApikey())
+                    .build();
+            Response response = client.newCall(request).execute();
 
+        }catch (IOException e){
+            System.out.println(e);
+        }
     }
 }
