@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
         int opcion_menu = -1;
-        String [] botones = {"1. ver gatos", "2. salir."};
+        String [] botones = {"1. ver gatos", "2. ver favoritos", "3. salir."};
 
         do {
             //Menu principal
@@ -24,6 +24,10 @@ public class Main {
                 case 0:
                     GatosService.verGatos();
                     break;
+                case 1:
+                    //para solicitarlo debemos tener la api key
+                    Gatos gato = new Gatos();//instanciar clase gato
+                    GatosService.verFavorito(gato.getApikey());
                 default:
                     break;
             }
