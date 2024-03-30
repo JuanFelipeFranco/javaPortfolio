@@ -1,26 +1,32 @@
 package com.platzi.javatests.util;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 public class StringUtilTest {
-    public static void main(String[] args) {
-        //refactorizado
-        assertEquals(StringUtil.repeat("hola",3),"holaholahola");
-
-        String result2 = StringUtil.repeat("hola",1);
-        assertEquals(result2,"hola");
-
-       /* if (result2.equals("hola")){
-            System.out.println("OK");
-        }
-//        System.out.println(result2);*/
-
+    @Test
+    public void repeat_string_once(){
+        Assert.assertEquals("hola",StringUtil.repeat("hola",1));
+    }
+    @Test
+    public void repeat_string_multiple_times(){
+        Assert.assertEquals("holaholahola",StringUtil.repeat("hola",3));
+    }
+    @Test
+    public void repeat_string_zero_times(){
+        Assert.assertEquals("",StringUtil.repeat("hola",0));
     }
 
-    private static void assertEquals(String actual, String expected) {
+    @Test(expected = IllegalArgumentException.class)
+    public void repeat_string_negative_times(){
+        StringUtil.repeat("hola",-1);
+    }
+
+   /* private static void assertEquals(String actual, String expected) {
         if (!actual.equals(expected)){
             throw new RuntimeException(actual +" is not equal to expected "+expected);
 //            System.out.println("OK");
-        }
+        }*/
 
 
     }
-
-}
