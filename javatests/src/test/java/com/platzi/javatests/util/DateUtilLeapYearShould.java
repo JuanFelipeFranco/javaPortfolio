@@ -34,11 +34,10 @@ public class DateUtilLeapYearShould {
         assertThat(DateUtil.isLeapYear(2008), is(true));
     }
 
-
-
-
-
-
-
-
+    @Test
+    public void return_false_when_year_not_is_divisible_by_4(){
+        assertThat(DateUtil.isLeapYear(2017), is(false));
+        assertThat(DateUtil.isLeapYear(2018), is(false));
+        assertThat(DateUtil.isLeapYear(2019), is(false));
+    }
 }
