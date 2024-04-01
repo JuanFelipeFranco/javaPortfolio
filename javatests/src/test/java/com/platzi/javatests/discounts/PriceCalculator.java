@@ -14,7 +14,7 @@ public class PriceCalculator {
         for (Double price : prices) { //este bucle va pasando por todos los precios y lo añade al resultado
             result += price;
         }
-        return result * ((100-discount)/100); //retorna el valor, cuando tiene descuento
+        return result * (1-(discount/100)); //retorna el valor, cuando tiene descuento
     }
 
     public void addPrice(double price) {
