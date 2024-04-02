@@ -44,14 +44,28 @@ public class MovieServiceShould {
     public void return_movies_by_genre(){
 
         Collection<Movie> movies = movieService.findMoviesByGenre(Genre.COMEDY);
-
         //obteniendo los id: con stream nos permite manipular la coleccion de peliculas los cuales vamos a mapear cada pelicula a su id; y luego esto lo recolecto en una lista
-        List<Integer> moviesIds = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
 
         //si estoy pidiendo las peliculas de comedia obtendriamos la pelicula ID=3 Y ID=6, en este caso movies es la coleccion de peliculas y debemos obtener el id
-        assertThat(moviesIds, CoreMatchers.is(Arrays.asList(3,6)));
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(3,6))); //refactorizado
     }
 
+    @Test
+    public void return_movies_by_length(){
+        Collection<Movie> movies = movieService.findMoviesByLength(119);
+
+        //obteniendo los id: con stream nos permite manipular la coleccion de peliculas los cuales vamos a mapear cada pelicula a su id; y luego esto lo recolecto en una lista
+        List<Integer> moviesIds = getMovieIds(movies);
+
+        //si estoy pidiendo las peliculas de comedia obtendriamos la pelicula ID=3 Y ID=6, en este caso movies es la coleccion de peliculas y debemos obtener el id
+        assertThat(moviesIds, CoreMatchers.is(Arrays.asList(2,3,4,5,6))); //sin refactorizar
+
+    }
+
+    private static List<Integer> getMovieIds(Collection<Movie> movies) {
+        List<Integer> moviesIds = movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
+        return moviesIds;
+    }
 
 
 }
