@@ -18,7 +18,11 @@ public class MovieRepositoryJdbc implements MovieRepository {
 
     @Override
     public Movie findById(long id) {
-        return null;
+        //los argumentos por la interfaz de jdbctemplate deben ser una array de objetos donde indica el valor necesario en este caso id
+        Object [] args = {id};
+
+        //utilizamos forObject ya que este solo devuelve un elemento un id en este caso. el ? es el parametro que vamos a colocar en los argumentos
+        return jdbcTemplate.queryForObject("select * from movies where id = ?", args, movieMapper);
     }
 
     @Override
@@ -27,9 +31,12 @@ public class MovieRepositoryJdbc implements MovieRepository {
         return jdbcTemplate.query("select * from movies",movieMapper); //en este caso hacemos la consulta a la base de datos por el query y transformando cada pelicula en un objeto movie
     }
 
+    //los querys sirven para obtener datos.
     @Override
     public void saveOrUpdate(Movie movie) {
-
+        //este metodo sirve para hacer actualizaciones en la base de datos.
+        jdbcTemplate.update("insert into movies (name, minutes, genre) VALUES (?,?,?)",
+                movie.getName(),movie.getMinutes(),movie.getGenre().toString());
     }
 
     //usaremos un rowmapper de movie
