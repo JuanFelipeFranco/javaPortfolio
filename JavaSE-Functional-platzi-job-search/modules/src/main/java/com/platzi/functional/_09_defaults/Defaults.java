@@ -2,6 +2,8 @@ package com.platzi.functional._09_defaults;
 
 import java.util.Date;
 
+//
+
 public class Defaults {
     @FunctionalInterface
     interface Operational {
