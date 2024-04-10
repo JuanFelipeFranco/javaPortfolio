@@ -22,7 +22,7 @@ public final class CLIArguments {
     private String keyword;
 
     @Parameter(
-            names = {"--location", "-l"},
+            names = {"--location", "-l"}, //nombres con que se puede recibir el parametro, manera larga y corta
             description = "Ciudad, codigo postal o algun otro termino para buscar una ubicacion")
     private String location;
 
@@ -48,7 +48,7 @@ public final class CLIArguments {
             help = true,
             validateWith = CLIHelpValidator.class,
             description = "Muestra esta ayuda")
-    private boolean help;
+    private boolean isHelp;
 
     public String getKeyword() {
         return keyword;
@@ -71,7 +71,7 @@ public final class CLIArguments {
     }
 
     public boolean isHelp() {
-        return help;
+        return isHelp;
     }
 
     @Override
@@ -81,7 +81,7 @@ public final class CLIArguments {
                 ", location='" + location + '\'' +
                 ", pages=" + page +
                 ", isFullTime=" + isFullTime +
-                ", help=" + help +
+                ", help=" + isHelp +
                 ", isMarkdown=" + isMarkdown +
                 '}';
     }

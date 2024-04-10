@@ -9,10 +9,10 @@ import com.beust.jcommander.ParameterException;
  * la opcion de ayuda.
  */
 public class CLIHelpValidator implements IParameterValidator {
-
+//implementacin de metodos.
     @Override
     public void validate(String name, String value) throws ParameterException {
-        boolean actualValue = Boolean.parseBoolean(value);
+        boolean actualValue = Boolean.parseBoolean(value); //
         if (actualValue) {
             throw new ParameterException("Help passed");
         }

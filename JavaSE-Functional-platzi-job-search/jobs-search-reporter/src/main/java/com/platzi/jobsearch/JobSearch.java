@@ -15,7 +15,7 @@ import static com.platzi.jobsearch.CommanderFunctions.buildCommanderWithName;
 import static com.platzi.jobsearch.CommanderFunctions.parseArguments;
 import static com.platzi.jobsearch.api.APIFunctions.buildAPI;
 
-public class JobSearch {
+public class  JobSearch {
     public static void main(String[] args) {
         //Creacion de nuestro CLI con JCommander
         JCommander jCommander = buildCommanderWithName("job-search", CLIArguments::newInstance);
@@ -23,11 +23,12 @@ public class JobSearch {
         //Obtenemos las opciones que se le dieron a JCommander
         Stream<CLIArguments> streamOfCLI =
                 //Nos retorna un Optional<List<Object>>
+                //usage se da para que nos muestre la ayuda
                 parseArguments(jCommander, args, JCommander::usage)
                         //En caso de un Optional.empty()
                         .orElse(Collections.emptyList())
                         .stream()
-                        .map(obj -> (CLIArguments) obj);
+                        .map(obj -> (CLIArguments) obj); //el objeto lo convertimos en un cliArguments
 
         //Tomamos nuestro Stream y obtenemos las opciones que se dieron en el CLI
         Optional<CLIArguments> cliOptional = streamOfCLI
@@ -49,10 +50,12 @@ public class JobSearch {
     }
 
     private static Stream<JobPosition> executeRequest(Map<String, Object> options) {
+        //construimos el api
         JobsAPI api = buildAPI(JobsAPI.class, "https://jobs.github.com");
 
         return Stream.of(options)
                 .map(api::jobs)
+                //toma una coleccion y lo transforma en objetos individuales. la apijobs que nos devuelve una lista a un stream
                 .flatMap(Collection::stream);
     }
 }

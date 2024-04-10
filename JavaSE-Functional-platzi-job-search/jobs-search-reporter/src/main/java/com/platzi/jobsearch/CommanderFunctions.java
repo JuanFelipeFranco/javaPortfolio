@@ -22,6 +22,7 @@ public interface CommanderFunctions {
                 .build();
     }
 
+
     /**
      * Con esta funcion, facilitamos crear una configuracion inicial de JCommander, pidiendo el nombre del
      * programa y un Supplier de tipo T para los argumentos. Asi podemos usar alguna funcion que nos devuelva

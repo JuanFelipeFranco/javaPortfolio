@@ -14,12 +14,12 @@ public final class JobPosition {
 
     private String ulr;
 
-    @SerializedName("created_at")
+    @SerializedName("created_at") //colocamos el nombre que tiene en el JSON
     private String createdAt;
 
     private String company;
 
-    @SerializedName("company_url")
+    @SerializedName("company_url")//se llama diferente en nuestro JSON.
     private String companyUrl;
 
     private String location;
@@ -31,7 +31,7 @@ public final class JobPosition {
     @SerializedName("how_to_apply")
     private String howToApply;
 
-    @SerializedName("company_logo")
+    @SerializedName("company_logo") //tiene nombre diferente por eso usamos el serializedName
     private String companyLogo;
 
     public String getId() {

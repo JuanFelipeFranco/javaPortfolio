@@ -13,7 +13,7 @@ public class CLIKeywordValidator implements IParameterValidator {
     public void validate(String name, String value) throws ParameterException {
         if (!value.matches("^[a-zA-Z]+[0-9]*$")) {
             System.err.println("Keyword: " + value + " no es un Keyword valido, keywords deben ser alfanumericas.\n");
-            throw new ParameterException("Only alphanumerics are supported");
+            throw new ParameterException("Only alphanumerics are supported"); //excepcion para interceptar errores.
         }
     }
 }

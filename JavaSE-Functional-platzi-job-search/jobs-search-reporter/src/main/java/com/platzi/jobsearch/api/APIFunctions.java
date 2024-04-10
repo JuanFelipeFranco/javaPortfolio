@@ -16,7 +16,7 @@ public interface APIFunctions {
      */
     static <T> T buildAPI(Class<T> api, String url) {
         return Feign.builder()
-                .decoder(new GsonDecoder())
-                .target(api, url);
+                .decoder(new GsonDecoder())//
+                .target(api, url);//LA CLASE QUE LE APUNTAMOS(API) Y LA URL QUE NECESITAMOS.
     }
 }

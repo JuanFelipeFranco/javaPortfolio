@@ -1,1 +1,3 @@
+//contiene las configuraciones globales del proyecto
 include ":modules", "jobs-search-reporter"
+rootProject.name = 'job-search'
