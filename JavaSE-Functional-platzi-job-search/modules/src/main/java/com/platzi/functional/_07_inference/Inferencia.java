@@ -15,8 +15,6 @@ public class Inferencia {
         List<String> alumnos = nombresUtils.getList("Hugo","paco","luis");
         alumnos.forEach((String name) -> System.out.println(name)); //de manera explicita
         alumnos.forEach(name->System.out.println(name)); //sin definir el tipo, java se encarga de corroborar que ambos tipos sean el mismo
-        alumnos.forEach(System.out::println);
-
+        alumnos.forEach(System.out::println); //con operator.
     }
     }
-

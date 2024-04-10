@@ -8,7 +8,10 @@ import java.util.function.Predicate;
 
 public class Sintaxis {
     public static void main(String[] args) {
+
         List <String> cursos = nombresUtils.getList("Java", "Functional");
+
+        // esto es una lambda, ya que curso no esta almacenada en otro lugar, solo en este fragmento; lambda son casos unicos con logica simple
         cursos.forEach(curso -> System.out.println(curso));
 
         // estamos generando una lambda que no tiene ningun argumento o parametro, no colocamos un return java infiere que el valor a retornar es 2
@@ -41,7 +44,9 @@ public class Sintaxis {
 
     }
 
-    //generamos esta funcion para crear un elemento con la interface
+    //---------------  FUNCIONES DE ORDEN MAYOR --------------------
+
+    //utilizamos la funcional interface de ZeroArgumentos generamos esta funcion para crear un elemento con la interface
     static void usarZero(ZeroArgumentos zeroArgumentos){
 
     }
@@ -56,7 +61,6 @@ public class Sintaxis {
 
     }
 
-    //
     static void usarNada (Operarnada operarnada){
 
     }

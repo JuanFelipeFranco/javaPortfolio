@@ -17,11 +17,11 @@ public class AgeUtils {
         TriFunction<Integer,Integer,Integer,Integer> calculateAge =
                 (day, month, year) -> Period.between(parseDate.apply(day,month,year),LocalDate.now()).getYears();
 
-        System.out.println(calculateAge.apply(10,10,1992));
+        System.out.println(calculateAge.apply(10,7,1996));
     }
     @FunctionalInterface
     interface TriFunction <T,U,V, R>{
-        // es una funcion que esta recibiendo tres paramteros.
-        R apply(T t,U u, V v);
+        // es una funcion que esta recibiendo tres paramteros. Es una interfaz que solo tiene un metodo.
+        R apply(T t,U u, V v);// retorna un R que recibe tres parametros TUV
     }
 }

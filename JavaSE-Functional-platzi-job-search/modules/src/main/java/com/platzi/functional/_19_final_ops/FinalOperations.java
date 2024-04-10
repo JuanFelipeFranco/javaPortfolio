@@ -66,7 +66,7 @@ public class FinalOperations {
         //findFirst
         //Retorna un Optional con el primer elemento del Stream o Optional.empty() si no hay elementos en el Stream
         Stream<List<String>> availableCourses = getCourses();
-        Optional<List<String>> firstCoursesOptional = coursesStream.findFirst();
+        Optional<List<String>> firstCoursesOptional = availableCourses.findFirst();
 
 
         //forEach
@@ -126,5 +126,21 @@ public class FinalOperations {
         //reduce(valorInicial, BinaryFunction<V, T, V> acumulador, BinaryOperator<V> combinador)
         Stream<String> aLongStoryStreamAgain = Stream.of("Cuando", "despertó,", "el", "dinosaurio", "todavía", "estaba", "allí.");
         int charCount = aLongStoryStreamAgain.reduce(0, (count, word) -> count + word.length(), Integer::sum);
+
+        //Conclusiones
+        //Las operaciones terminales se encargan de dar un fin y liberar el espacio usado por un Stream. Son también la manera de romper
+        // los encadenamientos de métodos entre streams y regresar a nuestro código a un punto de ejecución lineal. Como su nombre lo
+        // indica, por lo general, son la ultima operación presente cuando escribes chaining:
+
+        Stream<Integer> infiniteStream = Stream.iterate(0, x -> x + 1);
+        List<Integer> numbersList = infiniteStream.limit(1000)
+                .filter(x -> x % 2 == 0) // Operación intermedia
+                .map(x -> x * 3) //Operación intermedia
+                .collect(Collectors.toList()); //Operación final
+        //Por ultimo, recuerda que una vez que has agregado una operación a un Stream, el Stream original ya no puede ser utilizado.
+        // Y más aun al agregar una operación terminal, pues esta ya no crea un nuevo Stream. Internamente, al recibir una operación,
+        //
+        //
+        // el Stream en algún punto llama a su método close, que se encarga de liberar los datos y la memoria del Stream.
     }
 }
