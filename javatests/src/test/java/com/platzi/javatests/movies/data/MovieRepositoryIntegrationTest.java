@@ -84,7 +84,21 @@ public class MovieRepositoryIntegrationTest {
         assertThat(movieFromDb, is(new Movie(4,"Super 8", 112, Genre.THRILLER)));
     }
 
+    @Test
+    public void load_movie_by_name(){
+        Collection <Movie> movieSearch = movieRepository.findByName("Dark Knight");
+        assertThat(movieSearch, is(Arrays.asList(
+                new Movie(1, "Dark Knight", 152, Genre.ACTION))));
+    }
 
+    @Test
+    public void load_movie_by_name_SQL_method(){
+        Collection <Movie> movies = movieRepository.findByNameSQLMethod("dark");
+        assertThat(movies, is(Arrays.asList(
+                new Movie(1, "Dark Knight", 152, Genre.ACTION) ,
+                new Movie(2, "Memento", 113, Genre.THRILLER) ,
+                new Movie(3, "Matrix", 136, Genre.ACTION))));
+    }
 
     @After //se ejecuta despues de cada test esto lo que hace es borrar los datos una vez se ejecute cada test
     public void tearDown() throws Exception {

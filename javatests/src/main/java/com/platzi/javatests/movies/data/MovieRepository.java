@@ -9,4 +9,7 @@ public interface MovieRepository {
     Collection<Movie>findAll();
     void saveOrUpdate(Movie movie);
 
+    Collection<Movie> findByName(String name);
+
+    Collection<Movie> findByNameSQLMethod(String name);
 }

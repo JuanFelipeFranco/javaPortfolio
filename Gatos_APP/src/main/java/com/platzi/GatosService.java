@@ -106,6 +106,7 @@ public class GatosService {
     }
     //creamos el metodo favorito Gato: este metodo recibe los datos que el usuario vio y lo marca como favorito en la api de catapi
 
+<<<<<<< Updated upstream
     public static void favoritoGato(Gatos gato) {
         try {
             OkHttpClient client = new OkHttpClient();
@@ -239,5 +240,9 @@ public class GatosService {
         } catch (IOException e) {
             System.out.println(e);
         }
+=======
+    public static void favoritoGato(Gatos gato){
+        
+>>>>>>> Stashed changes
     }
 }
