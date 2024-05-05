@@ -17,6 +17,8 @@ public class Naming {
         String fullName = "Juan Felipe Franco Rosas";
         int sizeInCentimeters = 26;
 
+        //Upper Camel Case:pára nombrar clases o archivos
+
 
     }
 }
