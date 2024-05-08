@@ -1,34 +1,29 @@
 package org.exaple.felipe.main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Main {
     public static void main(String[] args) {
-        Connection myConn = null; //nuestro objeto connection
-        Statement myStamt = null; //objeto statement
-        ResultSet myRes = null; //para procesar nuestros resultados
+         String url = "jdbc:mysql://localhost:3306/project";
+         String user = "root";
+         String pass = "admin";
 
-         
-
-        try{
+        try (
             //1. conexion a nuestra base de datos, pasando 3 argumentos
-            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","admin");
-            System.out.println("Conexion exitosa");
-
+            Connection myConn = DriverManager.getConnection(url, user, pass);
             //2. Crear una declaracion objeto
-            myStamt = myConn.createStatement();
+            Statement myStamt = myConn.createStatement();
+            //3. Ejecutar consulta SQL
+            ResultSet myRes = myStamt.executeQuery("SELECT * FROM employees");){
 
-           //3. Ejecutar consulta SQL
-            myRes= myStamt.executeQuery("SELECT * FROM employees");
-            while (myRes.next()){
-                System.out.println(myRes.getString("first_name"));
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("algo salio mal");
+                while (myRes.next()) {
+                    System.out.println(myRes.getString("first_name"));
+                }
         }
-    }
-}
+                catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("algo salio mal");
+                }
+            }
+ }
+
