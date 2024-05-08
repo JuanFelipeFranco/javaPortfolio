@@ -3,23 +3,21 @@ import java.sql.*;
 public class Main {
     public static void main(String[] args) {
         Connection myConn = null;
-        PreparedStatement myStamt = null;
-
+        Statement myStamt = null;
+        ResultSet myRes = null;
 
         try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","admin");
             System.out.println("Conexion exitosa");
 
-            String sql=("INSERT INTO employees (first_name, pa_surname) VALUES (?,?)");
-            myStamt = myConn.prepareStatement(sql);
-            myStamt.setString(1,"Juan");
-            myStamt.setString(2,"Franco");
+            myStamt = myConn.createStatement();
 
-            int rowsAffected = myStamt.executeUpdate();
-            //myRes = myStamt.executeQuery("SELECT * FROM EMPLOYEES");
+            int rowsAffected = myStamt.executeUpdate("UPDATE employees " + "SET email = 'juanfelipefrancor@example.com' " + "WHERE first_name='Juan'");
 
-            if (rowsAffected > 0){
-                System.out.println("Se ha creado nuevo empleado");
+            myRes= myStamt.executeQuery("SELECT * FROM employees ORDER BY pa_surname");
+
+            while (myRes.next()){
+                System.out.println(myRes.getString("first_name") + "," + myRes.getString("email"));
             }
         }catch (Exception e){
             e.printStackTrace();
