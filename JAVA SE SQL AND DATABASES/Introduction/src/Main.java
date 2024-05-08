@@ -12,12 +12,13 @@ public class Main {
 
             myStamt = myConn.createStatement();
 
-            int rowsAffected = myStamt.executeUpdate("UPDATE employees " + "SET email = 'juanfelipefrancor@example.com' " + "WHERE first_name='Juan'");
+            int rowsAffected = myStamt.executeUpdate("DELETE FROM employees " + "WHERE first_name='Juan'");
+            System.out.println("Empleados actuales: ");
+            myRes= myStamt.executeQuery("SELECT * FROM employees");
 
-            myRes= myStamt.executeQuery("SELECT * FROM employees ORDER BY pa_surname");
-
+            System.out.println("Empleados despues de eliminar");
             while (myRes.next()){
-                System.out.println(myRes.getString("first_name") + "," + myRes.getString("email"));
+                System.out.println(myRes.getString("first_name"));
             }
         }catch (Exception e){
             e.printStackTrace();
