@@ -3,19 +3,23 @@ import java.sql.*;
 public class Main {
     public static void main(String[] args) {
         Connection myConn = null;
-        Statement myStamt = null;
-        ResultSet myRes =null;
+        PreparedStatement myStamt = null;
+
 
         try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","admin");
             System.out.println("Conexion exitosa");
 
-            myStamt = myConn.createStatement();
-            
-            myRes = myStamt.executeQuery("SELECT * FROM EMPLOYEES");
+            String sql=("INSERT INTO employees (first_name, pa_surname) VALUES (?,?)");
+            myStamt = myConn.prepareStatement(sql);
+            myStamt.setString(1,"Juan");
+            myStamt.setString(2,"Franco");
 
-            while (myRes.next()){
-                System.out.println(myRes.getString("first_name"));
+            int rowsAffected = myStamt.executeUpdate();
+            //myRes = myStamt.executeQuery("SELECT * FROM EMPLOYEES");
+
+            if (rowsAffected > 0){
+                System.out.println("Se ha creado nuevo empleado");
             }
         }catch (Exception e){
             e.printStackTrace();
