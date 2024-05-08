@@ -15,9 +15,10 @@ public class EmployeeRepository implements Repository<Employee> {
     public List<Employee> findAll() throws SQLException {
         List<Employee> employees = new ArrayList<>();
         try(Statement myStamt = getConnection().createStatement();
-            ResultSet myRes = myStamt.executeQuery("SELECT * FROM Employees")){
+            ResultSet myRes = myStamt.executeQuery("SELECT * FROM employees")){
             while (myRes.next()){
-                createEmployee(myRes);
+                Employee e = createEmployee(myRes);
+                employees.add(e);
             }
         }
         return employees;
