@@ -12,6 +12,8 @@ public class Main {
         try (Connection myConn = DatabaseConnection.getInstance()){
             Repository<Employee> repository = new EmployeeRepository();
             repository.findAll().forEach(System.out::println);
+            System.out.println("--------------------GET BY ID------------------");
+            System.out.println(repository.getById(3));
         }
 
 
