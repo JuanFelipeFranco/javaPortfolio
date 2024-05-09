@@ -23,7 +23,6 @@ public class EmployeeRepository implements Repository<Employee> {
         }
         return employees;
     }
-
     @Override
     public Employee getById(Integer id) throws SQLException {
         Employee employee = null;
