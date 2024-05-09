@@ -4,14 +4,60 @@ import org.exaple.felipe.model.Employee;
 import org.exaple.felipe.repository.EmployeeRepository;
 import org.exaple.felipe.repository.Repository;
 import org.exaple.felipe.util.DatabaseConnection;
-import org.exaple.felipe.view.SwingApp;
+
 
 import java.sql.*;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        SwingApp app = new SwingApp();
-        app.setVisible(true);
+        Employee employee = new Employee();
+        employee.setFirst_name("America");
+        employee.setPa_surname("Lopez");
+        employee.setMa_surname("Villa");
+        employee.setEmail("ame@example.com");
+        employee.setSalary(3000F);
+        employee.setCurp("AMEC234Y91JOLPSDET");
+
+        Employee employee2 = new Employee();
+        employee2.setFirst_name("juan ca");
+        employee2.setPa_surname("galindo");
+        employee2.setMa_surname("li");
+        employee2.setEmail("jgl@example.com");
+        employee2.setSalary(4000F);
+        employee2.setCurp("AMEC234Y91JOLPSDET");
+
+        try (Connection myConn = DatabaseConnection.getInstance()){
+            //autocommit en falso
+            if(myConn.getAutoCommit()){
+                myConn.setAutoCommit(false);
+            }
+
+            try{
+                //we create an instance of employeeRepository
+                Repository<Employee> repository = new EmployeeRepository(myConn);
+                //find all employees and then show them on the console
+                repository.findAll().forEach(System.out::println);
+                //we do two operations for modify data of the table
+                System.out.println("---------Insertar  un nuevo cliente");
+                repository.save(employee);
+                //find all employees and we see the change
+                repository.findAll().forEach(System.out::println);
+                //insert other employee
+                System.out.println("---------Insertar  un nuevo cliente");
+                repository.save(employee2);
+                //find all emloyees and we see the change
+                repository.findAll().forEach(System.out::println);
+                myConn.commit();
+            } catch (SQLException e){
+                myConn.rollback();
+                throw new RuntimeException(e);
+            }
+
+        }
+
+
+        /*SwingApp app = new SwingApp();
+        app.setVisible(true);*/
 
         /*try (Connection myConn = DatabaseConnection.getInstance()){
             Repository<Employee> repository = new EmployeeRepository();
