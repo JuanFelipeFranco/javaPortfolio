@@ -40,6 +40,27 @@ public class EmployeeRepository implements Repository<Employee> {
 
     @Override
     public void save(Employee employee) {
+        String sql;
+        //SI CONTIENE UN VALOR NUMERICO MAYOR QUE 0, entonces existe id y es un update
+        if (employee.getId() != null && employee.getId()>0){
+            sql= "UPDATE employees SET first_name=?, pa_surname=?, ma_surname=?, email=?, salary=? WHERE id=?";
+        }else {
+            sql="INSERT INTO employees (first_name, pa_surname, ma_surname, email, salary) VALUES (?,?,?,?,?)";
+        }
+        try (PreparedStatement myStamt = getConnection().prepareStatement(sql)){
+            myStamt.setString(1, employee.getFirst_name());
+            myStamt.setString(2, employee.getPa_surname());
+            myStamt.setString(3, employee.getMa_surname());
+            myStamt.setString(4, employee.getEmail());
+            myStamt.setFloat(5, employee.getSalary());
+            if (employee.getId() != null && employee.getId()>0){
+                myStamt.setInt(6,employee.getId());
+            }
+            myStamt.executeUpdate();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
 
     }
 
