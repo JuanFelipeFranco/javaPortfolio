@@ -25,7 +25,7 @@ public class Main {
             repository.save(employee);
             System.out.println("-----------LISTANDO EMPLEADOS ACTUALES--------");
             repository.findAll().forEach(System.out::println);*/
-            System.out.println("--------------------ACTUALIZANDO EMPLEADO------------------");
+            /*System.out.println("--------------------ACTUALIZANDO EMPLEADO------------------");
             Employee employee = new Employee();
             employee.setId(6);
             employee.setFirst_name("Juan Felipe");
@@ -33,7 +33,9 @@ public class Main {
             employee.setMa_surname("Rosas");
             employee.setEmail("juan@gmail.com");
             employee.setSalary((float) 5000);
-            repository.save(employee);
+            repository.save(employee);*/
+            System.out.println("----------- ELIMINANDO EMPLEADO --------");
+            repository.delete(7);
             System.out.println("-----------LISTANDO EMPLEADOS ACTUALES--------");
             repository.findAll().forEach(System.out::println);
 
