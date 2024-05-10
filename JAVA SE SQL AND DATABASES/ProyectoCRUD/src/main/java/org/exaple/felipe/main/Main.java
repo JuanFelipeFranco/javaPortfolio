@@ -10,7 +10,15 @@ import java.sql.*;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        Employee employee = new Employee();
+        System.out.println("--------LISTANDO TODOS------------");
+        Repository<Employee> repository = new EmployeeRepository();
+
+        repository.findAll().forEach(System.out::println);
+
+        System.out.println("--------Buscando por ID--------------");
+        System.out.println(repository.getById(2));
+
+        /*Employee employee = new Employee();
         employee.setFirst_name("America");
         employee.setPa_surname("Lopez");
         employee.setMa_surname("Villa");
@@ -53,7 +61,7 @@ public class Main {
                 throw new RuntimeException(e);
             }
 
-        }
+        }*/
 
 
         /*SwingApp app = new SwingApp();
