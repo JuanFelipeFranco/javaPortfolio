@@ -1,4 +1,4 @@
-package com.platzi;
+package com.felipe.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ public class Conexion {
     public Connection get_connection(){
         Connection conection = null;
         try{
-            conection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mensajes.app","root","");
+            conection = DriverManager.getConnection("jdbc:mysql://localhost:3306/red_social","root","admin");
             if (conection != null){
                 System.out.println("conexion exitosa");
             }
