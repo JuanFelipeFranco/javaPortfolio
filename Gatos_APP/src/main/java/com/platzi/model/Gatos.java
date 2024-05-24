@@ -1,11 +1,10 @@
-package com.platzi;
+package com.platzi.model;
 
-public class GatosFav {
-    //parametros para parcear la respuesta
+public class Gatos {
     String id;
-    String image_id;
+    String url;
     String apikey = "live_OFqRpUKxbKW41RqavnLLeLLscJpEUzfnmvwOuCZ8M7UwlTyADhNNEwk9Xx9iwq1q";
-    public Imagex image;
+    String image;
 
     public String getId() {
         return id;
@@ -15,12 +14,12 @@ public class GatosFav {
         this.id = id;
     }
 
-    public String getImage_id() {
-        return image_id;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImage_id(String image_id) {
-        this.image_id = image_id;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getApikey() {
@@ -31,11 +30,11 @@ public class GatosFav {
         this.apikey = apikey;
     }
 
-    public Imagex getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Imagex image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

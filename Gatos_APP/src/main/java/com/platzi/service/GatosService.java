@@ -1,8 +1,10 @@
-package com.platzi;
+package com.platzi.service;
 
 import com.google.gson.Gson;
-import com.platzi.Gatos;
-import com.squareup.okhttp.*;
+
+import com.platzi.model.Gatos;
+import com.platzi.model.GatosFav;
+import okhttp3.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.SQLOutput;
 
 public class GatosService {
     private static String BASE_URL = "https://api.thecatapi.com/v1/";
@@ -29,13 +30,12 @@ public class GatosService {
     public static void verGatos() throws IOException {
         //1 traemos los datos de la API
         OkHttpClient client = new OkHttpClient();
-        /*MediaType mediaType = MediaType.parse("text/plain");
-        RequestBody body = RequestBody.create(mediaType, "");*/
-        Request request = new Request.Builder().url(SEARCH_ENDPOINT).method("GET", null).build();
+        Request request = new Request.Builder().url(SEARCH_ENDPOINT).get().build();
         Response response = client.newCall(request).execute();
 
         //elJSON ES LA VARIABLE QUE NOS DA LA RESPUESTA donde guardamos la respuesta(response)
         String DatoJson = response.body().string();
+        System.out.println(DatoJson);
 
         //CORTAR LOS CORCHETES INICIAL Y FINAL, del formato que viene de postman.
         DatoJson = DatoJson.substring(1, DatoJson.length());
@@ -45,19 +45,19 @@ public class GatosService {
         Gson gson = new Gson();
         //convertir esa respuesta de la api a un objeto de tipo gatos, Gatos.class es la clase con la que parceamos, y es nuestra clase compilada
 //NOS PERMITE MANIPULAR los parametros que vienen desde la api, con los que tenemos en la clase GATOS(id, url, apikey,image)
-        Gatos gatos = gson.fromJson(DatoJson, Gatos.class);
+        Gatos gato = gson.fromJson(DatoJson, Gatos.class);
 
         //redimensionando la imagen en caso de ser muy grandes.Estandarizamos el tamaño.
         Image image = null; //objeto de tipo Image
         try {
-            URL url = new URL(gatos.getUrl()); //obtenemos el tipo de URL y le pasamos la url del gato con el get
+            URL url = new URL(gato.getUrl()); //obtenemos el tipo de URL y le pasamos la url del gato con el get
             //convierte la url que traemos de la api y la convierte en una imagen.
-            image = ImageIO.read(url);
-            /*HttpURLConnection http = (HttpURLConnection) url.openConnection();
+//            image = ImageIO.read(url);
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
             http.addRequestProperty("User-Agent", "");
-            BufferedImage bufferedImage = ImageIO.read(http.getInputStream());*/
+            BufferedImage bufferedImage = ImageIO.read(http.getInputStream());
             //la clase JOPTIONPANE recibe un parametro imagen de tipo icon y esterecibe como parametro image.
-            ImageIcon fondoGato = new ImageIcon(image);
+            ImageIcon fondoGato = new ImageIcon(bufferedImage);
             //validacion dela imagen que recibe.
             if (fondoGato.getIconWidth() > 800) {
                 //redimensionar la image
@@ -68,16 +68,10 @@ public class GatosService {
                 fondoGato = new ImageIcon(modificada);
             }
 
-            //Creando el menu
-            /*String menu = "Opciones: \n"
-                    + "1. Ver Otra imagen \n"
-                    + "2. favorito \n"
-                    + "3. volver \n";
-            */
             //creamos un array de tipo string
             String[] botones = {"ver otra imagen", "favorito", "volver"};
             //guardamos el id del gato en un string, donde estamos convirtiendo el id del gato a un String
-            String id_gato = gatos.getId();
+            String id_gato = gato.getId();
             String opcion = (String) JOptionPane.showInputDialog(null, MenuGatosRandom, id_gato, JOptionPane.INFORMATION_MESSAGE, fondoGato, botones, botones[0]);
 
             int seleccion = -1;
@@ -93,7 +87,7 @@ public class GatosService {
                     verGatos();
                     break;
                 case 1:
-                    favoritoGato(gatos);
+                    favoritoGato(gato);
                     break;
                 default:
                     break;
@@ -106,7 +100,7 @@ public class GatosService {
     }
     //creamos el metodo favorito Gato: este metodo recibe los datos que el usuario vio y lo marca como favorito en la api de catapi
 
-<<<<<<< Updated upstream
+
     public static void favoritoGato(Gatos gato) {
         try {
             OkHttpClient client = new OkHttpClient();
@@ -128,11 +122,11 @@ public class GatosService {
     //como parametro enviamos la apikey
     public static void verFavorito(String apikey) throws IOException {
         OkHttpClient client = new OkHttpClient();
-        /*MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "");*/
+        //*MediaType mediaType = MediaType.parse("application/json");
+        //RequestBody body = RequestBody.create(mediaType, "");
         Request request = new Request.Builder()
                 .url(FAVORITE_ENDPOINT)
-                .method("GET", null)
+                .get()
                 .addHeader("Content-Type", "application/json")
                 .addHeader("x-api-key", apikey)
                 .build();
@@ -140,10 +134,12 @@ public class GatosService {
 
         //capturamos la respuesta de la peticion a la API, GUARDAR el STRING CON LA RESPUESTA
         String DatoJson = response.body().string();
+        System.out.println(DatoJson);
 
-        if (!response.isSuccessful()) {
-            response.body().close();
-        }
+
+//        if (!response.isSuccessful()) {
+//            response.body().close();
+//        }
 
         //creamos el objeto gson
         Gson gson = new Gson();
@@ -169,12 +165,12 @@ public class GatosService {
             try {
                 URL url = new URL(gatofav.image.getUrl()); //obtenemos el tipo de URL y le pasamos la url del gato con el get
                 //convierte la url que traemos de la api y la convierte en una imagen.
-                image = ImageIO.read(url);
-                        /*HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                        http.addRequestProperty("User-Agent", "");
-                        BufferedImage bufferedImage = ImageIO.read(http.getInputStream());*/
+                //            image = ImageIO.read(url);
+                HttpURLConnection http = (HttpURLConnection) url.openConnection();
+                http.addRequestProperty("User-Agent", "");
+                BufferedImage bufferedImage = ImageIO.read(http.getInputStream());
                 //la clase JOPTIONPANE recibe un parametro imagen de tipo icon y esterecibe como parametro image.
-                ImageIcon fondoGato = new ImageIcon(image);
+                ImageIcon fondoGato = new ImageIcon(bufferedImage);
                 //validacion dela imagen que recibe.
                 if (fondoGato.getIconWidth() > 800) {
                     //redimensionar la image
@@ -185,17 +181,11 @@ public class GatosService {
                     fondoGato = new ImageIcon(modificada);
                 }
 
-                /*//Creando el menu
-                String menu = "Opciones: \n"
-                        + "1. Ver Otra imagen \n"
-                        + "2. Eliminar Favorito \n"
-                        + "3. volver \n";*/
-
                 //creamos un array de tipo string
-                String[] botones = {"ver otra imagen", "Eliminar favorito", "volver"};
+                String[] botones = {"ver otra imagen", "eliminar favorito", "volver"};
                 //guardamos el id del gato en un string, donde estamos convirtiendo el id del gato a un String
                 String id_gato = gatofav.getId();
-                String opcion = (String) JOptionPane.showInputDialog(null, MenuFavorito, id_gato, JOptionPane.INFORMATION_MESSAGE, fondoGato, botones, botones[0]);
+                String opcion = (String) JOptionPane.showInputDialog(null, MenuGatosRandom, id_gato, JOptionPane.INFORMATION_MESSAGE, fondoGato, botones, botones[0]);
 
                 int seleccion = -1;
                 //validamos que opcion selecciona el usuario
@@ -223,26 +213,23 @@ public class GatosService {
         }
     }
 
-    public static void borrarFavorito(GatosFav gatoFav) {
-        try {
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(FAVORITE_ENDPOINT + gatoFav.getId() + "")
-                    .method("DELETE", null)
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("x-api-key", gatoFav.getApikey())
-                    .build();
-            Response response = client.newCall(request).execute();
+        public static void borrarFavorito (GatosFav gatoFav){
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .url(FAVORITE_ENDPOINT + gatoFav.getId() + "")
+                        .delete()
+                        .addHeader("Content-Type", "application/json")
+                        .addHeader("x-api-key", gatoFav.getApikey())
+                        .build();
+                Response response = client.newCall(request).execute();
 
-            if (!response.isSuccessful()) {
-                response.body().close();
+                if (!response.isSuccessful()) {
+                    response.body().close();
+                }
+            } catch (IOException e) {
+                System.out.println(e);
             }
-        } catch (IOException e) {
-            System.out.println(e);
         }
-=======
-    public static void favoritoGato(Gatos gato){
-        
->>>>>>> Stashed changes
-    }
 }
+

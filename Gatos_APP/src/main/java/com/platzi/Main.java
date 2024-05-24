@@ -1,5 +1,8 @@
 package com.platzi;
 
+import com.platzi.model.Gatos;
+import com.platzi.service.GatosService;
+
 import javax.swing.*;
 import java.io.IOException;
 

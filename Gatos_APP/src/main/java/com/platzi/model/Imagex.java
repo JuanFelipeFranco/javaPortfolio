@@ -1,4 +1,4 @@
-package com.platzi;
+package com.platzi.model;
 
 public class Imagex {
     String id;
