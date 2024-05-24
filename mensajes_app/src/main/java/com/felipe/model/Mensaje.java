@@ -4,34 +4,16 @@ public class Mensaje {
     //Atributos
     int id_mensaje;
     String mensaje;
-    String fecha;
-    String nombre;
+    String author_mensaje;
+    String fecha_mensaje;
 
-    //foreign attributes
-    int id_usuario;
-
-    //Constructores
     public Mensaje() {
     }
 
-    //delete message by Id
-    public Mensaje(int id_mensaje, int id_usuario) {
-        this.id_mensaje = id_mensaje;
-        this.id_usuario = id_usuario;
-    }
-
-    //create message
-    public Mensaje(String mensaje, int id_usuario) {
+    public Mensaje(String mensaje, String author_mensaje, String fecha_mensaje) {
         this.mensaje = mensaje;
-        this.id_usuario = id_usuario;
-    }
-
-    //list messages
-    public Mensaje(int id_mensaje, String mensaje, String fecha, String nombre) {
-        this.id_mensaje = id_mensaje;
-        this.mensaje = mensaje;
-        this.fecha = fecha;
-        this.nombre = nombre;
+        this.author_mensaje = author_mensaje;
+        this.fecha_mensaje = fecha_mensaje;
     }
 
     public int getId_mensaje() {
@@ -50,27 +32,19 @@ public class Mensaje {
         this.mensaje = mensaje;
     }
 
-    public String getFecha() {
-        return fecha;
+    public String getAuthor_mensaje() {
+        return author_mensaje;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setAuthor_mensaje(String author_mensaje) {
+        this.author_mensaje = author_mensaje;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getFecha_mensaje() {
+        return fecha_mensaje;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setFecha_mensaje(String fecha_mensaje) {
+        this.fecha_mensaje = fecha_mensaje;
     }
 }
