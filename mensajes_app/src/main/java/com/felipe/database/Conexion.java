@@ -9,7 +9,7 @@ public class Conexion {
     public Connection get_connection(){
         Connection conection = null;
         try{
-            conection = DriverManager.getConnection("jdbc:mysql://localhost:3306/red_social","root","admin");
+            conection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mensajes","root","admin");
             if (conection != null){
                 System.out.println("conexion exitosa");
             }
